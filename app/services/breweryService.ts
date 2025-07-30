@@ -1,5 +1,6 @@
 import axios from "axios"
 import { Brewery } from "../types";
+import { apiRoutes } from "../utils/apiRoutes";
 
 const apiInstance = axios.create({
     baseURL: 'https://api.openbrewerydb.org/v1',

@@ -1,4 +1,4 @@
-const apiRoutes = {
+export const apiRoutes = {
     brewery: {
         getAll: '/breweries',
         getById: (id: string) => `/breweries/${id}`,
