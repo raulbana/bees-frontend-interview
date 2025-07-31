@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Work_Sans } from "next/font/google";
 import "./globals.css";
+import { UserContextProvider } from "./store/userContext";
+import { BreweryContextProvider } from "./store/breweryContext";
 
 const workSans = Work_Sans({
   variable: "--font-work-sans",
@@ -21,10 +23,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${workSans.variable} antialiased`}
-      >
-        {children}
+      <body className={`${workSans.variable} antialiased`}>
+        <UserContextProvider>
+          <BreweryContextProvider>
+            {children}
+          </BreweryContextProvider>
+        </UserContextProvider>
       </body>
     </html>
   );
