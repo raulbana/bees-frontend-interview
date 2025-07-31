@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import React, { createContext, useContext, useState, useEffect, ReactNode, useCallback } from "react";
 import { Brewery } from "../types";
 import { breweriesService } from "../services/breweryService";
 
@@ -8,12 +8,10 @@ interface BreweryContextType {
   searchQuery: string;
   searchResults: Brewery[];
   isLoading: boolean;
-  error?: string | null;
-  
+  error: string | null;
   setSearchQuery: (query: string) => void;
   searchBreweries: (query: string) => Promise<void>;
   clearSearch: () => void;
-  
   getAllBreweries: () => Promise<void>;
   getBreweryById: (id: string) => Promise<Brewery | null>;
 }
@@ -30,7 +28,7 @@ export function BreweryContextProvider({
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  const searchBreweries = async (query: string) => {
+  const searchBreweries = useCallback(async (query: string) => {
     if (!query.trim()) {
       setSearchResults([]);
       return;
@@ -48,9 +46,9 @@ export function BreweryContextProvider({
     } finally {
       setIsLoading(false);
     }
-  };
+  }, []);
 
-  const getAllBreweries = async () => {
+  const getAllBreweries = useCallback(async () => {
     setIsLoading(true);
     setError(null);
     
@@ -63,9 +61,9 @@ export function BreweryContextProvider({
     } finally {
       setIsLoading(false);
     }
-  };
+  }, []);
 
-  const getBreweryById = async (id: string) => {
+  const getBreweryById = useCallback(async (id: string) => {
     setIsLoading(true);
     setError(null);
     
@@ -78,13 +76,13 @@ export function BreweryContextProvider({
     } finally {
       setIsLoading(false);
     }
-  };
+  }, []);
 
-  const clearSearch = () => {
+  const clearSearch = useCallback(() => {
     setSearchQuery("");
     setSearchResults([]);
     setError(null);
-  };
+  }, []);
 
   useEffect(() => {
     if (searchQuery) {
@@ -96,7 +94,7 @@ export function BreweryContextProvider({
     } else {
       setSearchResults([]);
     }
-  }, [searchQuery]);
+  }, [searchQuery, searchBreweries]);
 
   const value = React.useMemo<BreweryContextType>(() => ({
     searchQuery,
@@ -113,7 +111,6 @@ export function BreweryContextProvider({
     searchResults,
     isLoading,
     error,
-    setSearchQuery,
     searchBreweries,
     clearSearch,
     getAllBreweries,

@@ -6,6 +6,7 @@ import React, {
   useState,
   useEffect,
   ReactNode,
+  useCallback,
 } from "react";
 import { User, Brewery } from "../types";
 
@@ -30,27 +31,31 @@ export function UserContextProvider({
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
   useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      try {
-        const parsedUser = JSON.parse(storedUser);
-        setUser(parsedUser);
-        setIsLoggedIn(true);
-      } catch (error) {
-        console.error("Failed to parse user data from localStorage:", error);
+    if (typeof window !== 'undefined') {
+      const storedUser = localStorage.getItem("user");
+      if (storedUser) {
+        try {
+          const parsedUser = JSON.parse(storedUser);
+          setUser(parsedUser);
+          setIsLoggedIn(true);
+        } catch (error) {
+          console.error("Failed to parse user data from localStorage:", error);
+        }
       }
     }
   }, []);
 
   useEffect(() => {
-    if (user) {
-      localStorage.setItem("user", JSON.stringify(user));
-    } else {
-      localStorage.removeItem("user");
+    if (typeof window !== 'undefined') {
+      if (user) {
+        localStorage.setItem("user", JSON.stringify(user));
+      } else {
+        localStorage.removeItem("user");
+      }
     }
   }, [user]);
 
-  const login = (name: string, surname: string) => {
+  const login = useCallback((name: string, surname: string) => {
     const newUser: User = {
       name,
       surname,
@@ -60,23 +65,37 @@ export function UserContextProvider({
 
     setUser(newUser);
     setIsLoggedIn(true);
-  };
+  }, []);
 
-  const logout = () => {
+  const logout = useCallback(() => {
     setUser(null);
     setIsLoggedIn(false);
-  };
+  }, []);
 
-  const addFavoriteBrewery = (brewery: Brewery) => {
-    if (!user) return;
+  const addFavoriteBrewery = useCallback((brewery: Brewery) => {
+    try {
+      if (!user) {
+        throw new Error("User is not logged in.");
+      }
 
-    setUser({
-      ...user,
-      favouriteBreweries: [...user.favouriteBreweries, brewery],
-    });
-  };
+      const isAlreadyFavorite = user.favouriteBreweries.some(
+        (favBrewery) => favBrewery.id === brewery.id
+      );
 
-  const removeFavoriteBrewery = (breweryId: string) => {
+      if (isAlreadyFavorite) {
+        throw new Error("Brewery is already in favorites.");
+      }
+
+      setUser({
+        ...user,
+        favouriteBreweries: [...user.favouriteBreweries, brewery],
+      });
+    } catch (error) {
+      throw new Error("Failed to add favorite brewery: " + error);
+    }
+  }, [user]);
+
+  const removeFavoriteBrewery = useCallback((breweryId: string) => {
     if (!user) return;
 
     setUser({
@@ -85,15 +104,15 @@ export function UserContextProvider({
         (brewery) => brewery.id !== breweryId
       ),
     });
-  };
+  }, [user]);
 
-  const isBreweryFavorite = (breweryId: string): boolean => {
+  const isBreweryFavorite = useCallback((breweryId: string): boolean => {
     if (!user) return false;
 
     return user.favouriteBreweries.some((brewery) => brewery.id === breweryId);
-  };
+  }, [user]);
 
-  const value: UserContextType = React.useMemo(
+  const value = React.useMemo(
     () => ({
       user,
       isLoggedIn,
