@@ -17,15 +17,20 @@ const SearchBrewerySection = () => {
     isLoading,
     hasError,
     setHasError,
+    errorMessage,
+    setErrorMessage,
   } = useSearchBrewerySection();
   return (
     <div className="flex flex-col gap-6 w-full min-h-[80vh] p-6">
       {hasError && (
         <Alert
           type="ERROR"
-          message="An error occurred while searching for breweries."
+          message={errorMessage}
           show={hasError}
-          onClose={() => setHasError(false)}
+          onClose={() => {
+            setHasError(false);
+            setErrorMessage("");
+          }}
         />
       )}
       <div className="flex flex-col gap-6 items-center justify-between w-full lg:flex-row">
