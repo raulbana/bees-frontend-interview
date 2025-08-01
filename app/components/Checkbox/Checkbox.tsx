@@ -49,7 +49,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
         </svg>
       </div>
       {label && (
-        <label className="ml-2 text-black cursor-pointer">{label}</label>
+        <label htmlFor="checkbox-input" className="ml-2 text-black cursor-pointer">{label}</label>
       )}
     </div>
   );
