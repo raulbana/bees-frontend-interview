@@ -19,7 +19,7 @@ const SearchBrewerySection = () => {
     setHasError,
   } = useSearchBrewerySection();
   return (
-    <div className="flex flex-col gap-6 w-full flex-1 p-6">
+    <div className="flex flex-col gap-6 w-full min-h-[80vh] p-6">
       {hasError && (
         <Alert
           type="ERROR"
@@ -28,7 +28,7 @@ const SearchBrewerySection = () => {
           onClose={() => setHasError(false)}
         />
       )}
-      <div className="flex items-center justify-between w-full">
+      <div className="flex flex-col gap-6 items-center justify-between w-full lg:flex-row">
         <h1 className="font-semibold text-4xl">Add a new brewery</h1>
         <div className="flex flex-col lg:flex-row items-center gap-2">
           <Input
@@ -36,6 +36,7 @@ const SearchBrewerySection = () => {
             placeholder="Find for your new favorite brewery"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
+            extraClasses={`min-w-72`}
           />
           <div className="flex w-24">
             <Button
