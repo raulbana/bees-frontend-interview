@@ -193,6 +193,7 @@ describe("SearchBrewerySection", () => {
       isLoading: false,
       hasError: true,
       setHasError: mockSetHasError,
+      setErrorMessage: jest.fn(),
     });
 
     render(<SearchBrewerySection />);
