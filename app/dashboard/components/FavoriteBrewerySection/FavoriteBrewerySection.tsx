@@ -6,7 +6,7 @@ import BreweryCard from "@/app/components/BreweryCard/BreweryCard";
 const FavoriteBrewerySection = () => {
   const { favoriteBreweries, isFavorite } = useFavoriteBrewerySection();
   return (
-    <div className="flex flex-col gap-6 w-full flex-1 p-6">
+    <div className="flex flex-col gap-6 w-full min-h-[80vh] p-6">
       <h1 className="font-semibold text-4xl">Your favorite breweries</h1>
 
       {!favoriteBreweries || favoriteBreweries?.length === 0 ? (

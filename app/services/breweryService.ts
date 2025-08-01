@@ -10,24 +10,6 @@ const apiInstance = axios.create({
 })
 
 export const breweriesService = {
-    getAllBreweries: async (): Promise<Brewery[]> => {
-        try {
-            const response = await apiInstance.get(apiRoutes.brewery.getAll);
-            return response.data;
-        } catch (error) {
-            console.error('Error fetching breweries:', error);
-            throw error;
-        }
-    },
-    getBreweryById: async (id: string): Promise<Brewery | null> => {
-        try {
-            const response = await apiInstance.get(apiRoutes.brewery.getById(id));
-            return response.data;
-        } catch (error) {
-            console.error(`Error fetching brewery with ID ${id}:`, error);
-            throw error;
-        }
-    },
     searchBreweries: async (query: string): Promise<Brewery[]> => {
         try {
             const response = await apiInstance.get(apiRoutes.brewery.search(query));

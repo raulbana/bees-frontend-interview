@@ -68,7 +68,7 @@ const BreweryCard: React.FC<BreweryCardProps> = ({
         )}
 
         {brewery.phone && (
-          <div className="flex items-center gap-1">
+          <div className="bg-primary-yellow px-2 py-1 rounded-full text-xs flex items-center gap-1">
             <Phone size={16} color="#3F3F46" />
             <span className="text-xs ml-1">{brewery.phone}</span>
           </div>

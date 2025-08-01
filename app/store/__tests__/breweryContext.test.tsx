@@ -5,8 +5,6 @@ import { breweriesService } from "@/app/services/breweryService";
 
 jest.mock("@/app/services/breweryService", () => ({
   breweriesService: {
-    getAllBreweries: jest.fn(),
-    getBreweryById: jest.fn(),
     searchBreweries: jest.fn(),
   },
 }));
@@ -51,8 +49,6 @@ const TestComponent = () => {
     setSearchQuery,
     searchBreweries,
     clearSearch,
-    getAllBreweries,
-    getBreweryById,
   } = useBreweryContext();
 
   return (
@@ -71,12 +67,6 @@ const TestComponent = () => {
       </button>
       <button data-testid="clear" onClick={clearSearch}>
         Clear
-      </button>
-      <button data-testid="get-all" onClick={getAllBreweries}>
-        Get All
-      </button>
-      <button data-testid="get-by-id" onClick={() => getBreweryById("1")}>
-        Get By Id
       </button>
     </div>
   );
@@ -167,44 +157,6 @@ describe("BreweryContext", () => {
 
     expect(screen.getByTestId("search-query")).toHaveTextContent("");
     expect(screen.getByTestId("search-results")).toHaveTextContent("[]");
-  });
-
-  test("calls getAllBreweries and updates state", async () => {
-    (breweriesService.getAllBreweries as jest.Mock).mockResolvedValue(
-      mockBreweries
-    );
-
-    renderWithBreweryContext(<TestComponent />);
-
-    const getAllButton = screen.getByTestId("get-all");
-
-    act(() => {
-      getAllButton.click();
-    });
-
-    expect(breweriesService.getAllBreweries).toHaveBeenCalled();
-
-    await waitFor(() => {
-      expect(screen.getByTestId("search-results")).toHaveTextContent(
-        "Test Brewery 1"
-      );
-    });
-  });
-
-  test("calls getBreweryById correctly", async () => {
-    (breweriesService.getBreweryById as jest.Mock).mockResolvedValue(
-      mockBreweries[0]
-    );
-
-    renderWithBreweryContext(<TestComponent />);
-
-    const getByIdButton = screen.getByTestId("get-by-id");
-
-    act(() => {
-      getByIdButton.click();
-    });
-
-    expect(breweriesService.getBreweryById).toHaveBeenCalledWith("1");
   });
 
   test("handles error when API call fails", async () => {
