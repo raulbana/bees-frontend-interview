@@ -46,7 +46,7 @@ const Alert: React.FC<AlertProps> = ({
       role="alert"
     >
       <div className={`rounded-lg border-l-4 ${typeStyles} p-4`}>
-        <div className="flex items-start">
+        <div className="flex items-center">
           <div className="ml-3">
             {title && <h3 className="font-medium">{title}</h3>}
             <div className="text-sm">{message}</div>
