@@ -10,9 +10,11 @@ const Dashboard = () => {
       <Navbar />
       <div className="flex flex-col h-full w-full">
         <FavoriteBrewerySection />
-        {/* Divider fixed between 2 sections */}
-        <div className="h-[1px] bg-black w-11/12 m-auto" />
-
+        <div
+          className="h-[1px] bg-black w-11/12 m-auto"
+          role="separator"
+          aria-hidden="true"
+        />
         <SearchBrewerySection />
       </div>
     </div>

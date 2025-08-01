@@ -14,29 +14,29 @@ const LoginForm = () => {
     nameErrors,
     onSubmit,
     handleNameChange,
-    handleCheckboxChange
+    handleCheckboxChange,
   } = useLoginForm();
 
   return (
     <div className="flex flex-col gap-4 justify-center max-w-md p-6">
       <p>Please, enter your full name below</p>
       <p>Only alphabetical characters are accepted</p>
-      
-      <form onSubmit={onSubmit} className="flex flex-col gap-4">
+
+      <form onSubmit={onSubmit} className="flex flex-col gap-4" role="form">
         <Input
           placeholder="Your full name"
           value={fullName}
           onChange={(e) => handleNameChange(e.target.value)}
           error={nameErrors}
         />
-        
+
         <div className="flex flex-col items-center gap-4">
           <Checkbox
             checked={isOver18}
             onChange={handleCheckboxChange}
             label="Are you older than 18 years old?"
           />
-          
+
           <div className="flex w-20">
             <Button
               text="Enter"
