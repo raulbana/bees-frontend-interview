@@ -23,7 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${workSans.variable} antialiased`}>
+      <body className={`${workSans.variable} antialiased bg-light-yellow`}>
         <UserContextProvider>
           <BreweryContextProvider>
             {children}

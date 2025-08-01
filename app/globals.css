@@ -1,9 +1,22 @@
 @import "tailwindcss";
 
 :root {
-  --primary-yellow: #F2EC54;
-  --disabled-gray: #52525B;
-  --light-gray: #D4D4D8;
-  --black: #000000;
-  --white: #FFFFFF;
+  --color-primary-yellow: #F2EC54;
+  --color-disabled-gray: #52525B;
+  --color-light-gray: #D4D4D8;
+  --color-medium-gray: #71717A;
+  --color-black: #000000;
+  --color-white: #FFFFFF;
+  --color-light-yellow: #FFFAF2;
+}
+@theme{
+  --color-primary-yellow: #F2EC54;
+  --color-disabled-gray: #52525B;
+  --color-light-gray: #D4D4D8;
+  --color-dark-gray: #3F3F46;
+  --color-black: #000000;
+  --color-white: #FFFFFF;
+  --color-light-yellow: #FFFAF2;
+  --color-medium-gray: #71717A;
+  --color-checkbox-gray: #A1A1AA;
 }
