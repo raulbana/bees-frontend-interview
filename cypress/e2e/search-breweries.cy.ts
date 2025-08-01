@@ -34,7 +34,7 @@ describe('Search Breweries Flow', () => {
     cy.get('button').contains('Search').click()
     
     cy.wait('@failedSearch')
-    cy.contains('An error occurred while searching for breweries').should('be.visible')
+    cy.contains('An error occurred while searching for breweries.').should('be.visible')
   })
 
   it('should show empty results message when no breweries match search', () => {
@@ -46,6 +46,6 @@ describe('Search Breweries Flow', () => {
     cy.get('button').contains('Search').click()
     
     cy.wait('@emptySearch')
-    cy.contains('An error occurred while searching for breweries').should('be.visible')
+    cy.contains('No breweries found for the search query.').should('be.visible')
   })
 })

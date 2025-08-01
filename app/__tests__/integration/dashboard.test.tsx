@@ -243,7 +243,7 @@ describe("Dashboard Integration", () => {
 
     await waitFor(() => {
       expect(
-        screen.getByText(/An error occurred while searching for breweries/i)
+        screen.getByText(/No breweries found for the search query\./i)
       ).toBeInTheDocument();
     });
   });
