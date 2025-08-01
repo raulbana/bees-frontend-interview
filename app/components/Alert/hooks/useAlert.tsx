@@ -26,15 +26,24 @@ export const useAlert = ({ type, position, duration, show, onClose }: UseAlertPr
     }
   }, [isVisible, duration]);
 
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
   const handleClose = () => {
     setIsVisible(false);
     if (onClose) {
-      setTimeout(() => {
+      timeoutRef.current = setTimeout(() => {
         onClose();
       }, 300); 
     }
   };
 
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
   const getTypeStyles = () => {
     switch (type) {
       case "ERROR":
