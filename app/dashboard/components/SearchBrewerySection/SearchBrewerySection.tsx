@@ -36,7 +36,7 @@ const SearchBrewerySection = () => {
             placeholder="Find for your new favorite brewery"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            extraClasses={`min-w-72`}
+            extraClasses="min-w-72"
           />
           <div className="flex w-24">
             <Button
