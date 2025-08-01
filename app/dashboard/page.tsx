@@ -6,10 +6,13 @@ import SearchBrewerySection from "./components/SearchBrewerySection/SearchBrewer
 
 const Dashboard = () => {
   return (
-    <div className="bg-light-yellow h-screen">
+    <div className="bg-light-yellow min-h-screen">
       <Navbar />
       <div className="flex flex-col h-full w-full">
         <FavoriteBrewerySection />
+        {/* Divider fixed between 2 sections */}
+        <div className="h-[1px] bg-black w-11/12 m-auto" />
+
         <SearchBrewerySection />
       </div>
     </div>

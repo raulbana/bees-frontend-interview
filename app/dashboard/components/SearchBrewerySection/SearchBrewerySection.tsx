@@ -5,6 +5,7 @@ import useSearchBrewerySection from "./hooks/useSearchBrewerySection";
 import Input from "@/app/components/Input/Input";
 import Button from "@/app/components/Button/Button";
 import Loader from "@/app/components/Loader/Loader";
+import Alert from "@/app/components/Alert/Alert";
 
 const SearchBrewerySection = () => {
   const {
@@ -19,7 +20,7 @@ const SearchBrewerySection = () => {
   } = useSearchBrewerySection();
   return (
     <div className="flex flex-col gap-6 w-full flex-1 p-6">
-       {hasError && (
+      {hasError && (
         <Alert
           type="ERROR"
           message="An error occurred while searching for breweries."

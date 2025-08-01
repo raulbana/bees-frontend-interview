@@ -16,14 +16,24 @@ const useSearchBrewerySection = () => {
 
   const onSearch = async (query: string) => {
     try {
+      if (!query.trim()) {
+        setHasError(true);
+        setFoundBreweries([]);
+        return;
+      }
+
       setIsLoading(true);
       const response = await breweriesService.searchBreweries(query);
+      if (response.length === 0) {
+        setHasError(true);
+        setFoundBreweries([]);
+        return;
+      }
       setFoundBreweries(response);
     } catch (error) {
-      setFoundBreweries([]);
       console.error("Error searching breweries:", error);
       setHasError(true);
-      throw error;
+      setFoundBreweries([]);
     } finally {
       setIsLoading(false);
     }
