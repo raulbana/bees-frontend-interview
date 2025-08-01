@@ -29,7 +29,7 @@ const SearchBrewerySection = () => {
         />
       )}
       <div className="flex items-center justify-between w-full">
-        <h1 className="font-semibold text-4xl">Your favorite breweries</h1>
+        <h1 className="font-semibold text-4xl">Add a new brewery</h1>
         <div className="flex flex-col lg:flex-row items-center gap-2">
           <Input
             type="search"
