@@ -114,7 +114,7 @@ describe("SearchBrewerySection", () => {
 
   test("renders section title correctly", () => {
     render(<SearchBrewerySection />);
-    expect(screen.getByText("Your favorite breweries")).toBeInTheDocument();
+    expect(screen.getByText("Add a new brewery")).toBeInTheDocument();
   });
 
   test("renders search input and button", () => {
